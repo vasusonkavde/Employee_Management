@@ -1,0 +1,31 @@
+<!-- templates/salary_report.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Salary Report</h1>
+    <form method="get" action="">
+        {{ form.as_p }}
+        <button type="submit">Generate Report</button>
+    </form>
+
+    {% if salary_data %}
+        <h2>Department-wise Salary Report</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Department</th>
+                    <th>Total Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for department, total_cost in salary_data %}
+                    <tr>
+                        <td>{{ department }}</td>
+                        <td>${{ total_cost }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock content %}
+

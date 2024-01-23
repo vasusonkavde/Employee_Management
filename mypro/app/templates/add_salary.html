@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <h1>Add salary</h1>
+    <div class="row">
+        <div class="col-4">
+<form method="post">
+    {{form.as_p}}
+    {% csrf_token %}
+    <input type="submit" class="btn btn-success" value="Submit">
+</form>
+</div>
+
+<div class="col-8">
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Employee</th>
+            <th scope="col">Salary</th>
+            <th scope="col">start date</th>
+            <th scope="col">end date</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for dt in data %}
+            <th scope="row">{{ dt.id}}</th>
+            <td>{{ dt.employee}}</td>
+            <td>{{ dt.salary}}</td>
+            <td>{{ dt.start_date}}</td>
+            <td>{{ dt.end_date}}</td>
+            <td><a href="{% url 'update_salary' dt.id %}" class="btn btn-warning">update</a>
+            <form action="{% url 'delete_salary' dt.id %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-danger" value="Delete">
+            </form>
+            </td> 
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+</div>
+{% endblock content %}
